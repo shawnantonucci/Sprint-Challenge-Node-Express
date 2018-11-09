@@ -114,7 +114,7 @@ server.get("/api/actions", (req, res) => {
     });
 })
 
-// get action by id
+// get action by project id
 server.get("/api/actions/:id", (req, res) => {
     const { id } = req.params;
     const projectId = id;
@@ -123,6 +123,19 @@ server.get("/api/actions/:id", (req, res) => {
             res.status(200).json(action);
         } else {
             res.status(404).json({ message: "The action with the specified ID does not exist." });
+        }
+    }).catch(error => {
+        res.status(500).json({ error: "The action information could not be retrieved." });
+    });
+})
+
+server.get("/api/actions/:id", (req, res) => {
+    const { id } = req.params;
+    actionDb.get(id).then(action => {
+        if (acton.length !== 0) {
+            res.status(200).json(action);
+        } else {
+            res.status(404).json({ message: "The action with the specified ID does not exist."});
         }
     }).catch(error => {
         res.status(500).json({ error: "The action information could not be retrieved." });
