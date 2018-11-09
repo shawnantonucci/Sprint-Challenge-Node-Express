@@ -167,4 +167,17 @@ server.post("/api/actions", (req, res) => {
       });
   });
 
+// delete an action by id
+server.delete("/api/actions/:id", (req, res) => {
+    actionDb.remove(req.params.id).then(action => {
+        if (action) {
+            res.status(200).json(action);
+        } else {
+            res.status(404).json({ message: "The action with the specified ID does not exist." });
+        }
+    }).catch(error => {
+        res.status(500).json({ error: "The action could not be removed" });
+    });
+})
+
 module.exports = server;
