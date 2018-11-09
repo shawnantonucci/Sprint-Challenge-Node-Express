@@ -180,4 +180,19 @@ server.delete("/api/actions/:id", (req, res) => {
     });
 })
 
+// update an action by id
+server.put("/api/actions/:id", (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
+    return actionDb.update(id, changes).then(action => {
+        if (action) {
+            res.status(200).json(action);
+        } else {
+            res.status(404).json({ message: "The action with the specified ID does not exist." });
+        }
+    }).catch(error => {
+        res.status(500).json({ error: "The action information can not be modified." });
+    });
+})
+
 module.exports = server;
