@@ -1,9 +1,12 @@
 const express = require("express");
 
 const projectDb = require("../data/helpers/projectModel.js");
+const actionDb = require("../data/helpers/actionModel.js");
 
 const server = express();
 server.use(express.json());
+
+// PROJECTS
 
 // all projects
 server.get("/api/projects", (req, res) => {
@@ -97,6 +100,17 @@ server.put("/api/projects/:id", (req, res) => {
         }
     }).catch(error => {
         res.status(500).json({ error: "The project information can not be modified." });
+    });
+})
+
+// ACTIONS
+
+// get all actions
+server.get("/api/actions", (req, res) => {
+    actionDb.get().then(action => {
+        res.status(200).json(action);
+    }).catch(error => {
+        res.status(500).json({ error: "The action could not be retrived." });
     });
 })
 
