@@ -2,9 +2,6 @@ import React from "react";
 import axios from "axios";
 import { StyledLink, Title, ActionList } from '../Styles.js';
 
-let urlProjects = process.env === 'development' ? 'http://localhost:8000' : `https://shawn-node-express-app.herokuapp.com/api/projects/${id}`
-let urlActions = process.env === 'development' ? 'http://localhost:8000' : `https://shawn-node-express-app.herokuapp.com/api/actions/${id}?id=${id}`
-
 class Actions extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +17,8 @@ class Actions extends React.Component {
   }
 
   fetchAction = id => {
+    let urlProjects = process.env === 'development' ? 'http://localhost:8000' : `https://shawn-node-express-app.herokuapp.com/api/projects/${id}`
+    let urlActions = process.env === 'development' ? 'http://localhost:8000' : `https://shawn-node-express-app.herokuapp.com/api/actions/${id}?id=${id}`
     axios
       .get(urlProjects)
       .then(response => {
