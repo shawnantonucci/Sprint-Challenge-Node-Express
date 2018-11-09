@@ -11,9 +11,9 @@ server.use(cors());
 
 // PROJECTS
 
-server.get('/', (req, res) => {
-    res.redirect('/projects');
-  });
+// server.get('/', (req, res) => {
+//     res.redirect('/projects');
+//   });
 
 // all projects
 server.get("/api/projects", (req, res) => {
