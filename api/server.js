@@ -11,6 +11,10 @@ server.use(cors());
 
 // PROJECTS
 
+server.get('/', (req, res) => {
+    res.status(200).json({ api: 'running' });
+  });
+
 // all projects
 server.get("/api/projects", (req, res) => {
   projectDb
