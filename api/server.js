@@ -1,5 +1,6 @@
 const express = require("express");
 
+const gateKeeper = require("../middleware/gatekeeperMiddleware.js");
 const projectDb = require("../data/helpers/projectModel.js");
 const actionDb = require("../data/helpers/actionModel.js");
 
@@ -63,9 +64,6 @@ server.post("/api/projects", (req, res) => {
               error:
                 "There was an error while saving the project to the database"
             });
-          res
-            .status(400)
-            .json({ message: "Please provide a name and a description" });
         });
     })
     .catch(error => {
@@ -114,8 +112,22 @@ server.get("/api/actions", (req, res) => {
     });
 })
 
+// get action by id
+server.get("/api/action/:id", (req, res) => {
+    const { id } = req.params;
+    actionDb.get(id).then(action => {
+        if (action.length !== 0) {
+            res.status(200).json(action);
+        } else {
+            res.status(404).json({ message: "The action with the specified ID does not exist."});
+        }
+    }).catch(error => {
+        res.status(500).json({ error: "The action information could not be retrieved." });
+    });
+})
+
 // get action by project id
-server.get("/api/actions/:id", (req, res) => {
+server.get("/api/actions/:id", gateKeeper, (req, res) => {
     const { id } = req.params;
     const projectId = id;
     projectDb.getProjectActions(projectId).then(action => {
@@ -129,17 +141,30 @@ server.get("/api/actions/:id", (req, res) => {
     });
 })
 
-server.get("/api/actions/:id", (req, res) => {
-    const { id } = req.params;
-    actionDb.get(id).then(action => {
-        if (acton.length !== 0) {
-            res.status(200).json(action);
-        } else {
-            res.status(404).json({ message: "The action with the specified ID does not exist."});
-        }
-    }).catch(error => {
-        res.status(500).json({ error: "The action information could not be retrieved." });
-    });
-})
+// add new action
+server.post("/api/actions", (req, res) => {
+    actionDb
+      .insert(req.body)
+      .then(action => {
+        return actionDb
+          .get(action.id)
+          .then(action => {
+            res.status(201).json(action);
+          })
+          .catch(error => {
+            res
+              .status(500)
+              .json({
+                error:
+                  "There was an error while saving the action to the database"
+              });
+          });
+      })
+      .catch(error => {
+        res
+          .status(400)
+          .json({ message: "Please provide a project id, a description, notes, and a completed value." });
+      });
+  });
 
 module.exports = server;
