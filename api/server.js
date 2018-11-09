@@ -12,7 +12,7 @@ server.use(cors());
 // PROJECTS
 
 server.get('/', (req, res) => {
-    res.status(200).json({ api: 'running' });
+    res.send('GET /api/projects');
   });
 
 // all projects
