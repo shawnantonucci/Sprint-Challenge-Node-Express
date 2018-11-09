@@ -13,7 +13,8 @@
   "version": "1.0.0",
   "main": "knexfile.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node index.js",
+    "server": "nodemon"
   },
   "repository": {
     "type": "git",
