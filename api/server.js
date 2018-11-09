@@ -12,7 +12,7 @@ server.use(cors());
 // PROJECTS
 
 server.get('/', (req, res) => {
-    res.send('GET /api/projects');
+    res.redirect('/api/projects');
   });
 
 // all projects
