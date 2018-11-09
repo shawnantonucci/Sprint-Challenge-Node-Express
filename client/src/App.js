@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
 import { Route } from "react-router-dom";
-
 import Projects from "./components/Projects.js";
 import Actions from "./components/Actions.js";
+
+let url = process.env === 'development' ? 'http://localhost:8000' : 'https://shawn-node-express-app.herokuapp.com'
+require('dotenv').config()
 
 class App extends Component {
   constructor(props) {
@@ -17,12 +19,12 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:8000/api/projects")
+      .get(url)
       .then(response => this.setState({ projects: response.data }))
       .catch(error => console.log(error));
 
     axios
-      .get("http://localhost:8000/api/actions")
+      .get(url)
       .then(response => this.setState({ actions: response.data }))
       .catch(error => console.log(error));
   }
