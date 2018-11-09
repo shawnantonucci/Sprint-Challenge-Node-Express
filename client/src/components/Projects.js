@@ -6,7 +6,7 @@ const Projects = props => {
       <div>
           {props.projects.map(project => (
               <div key={project.id}>
-                  <Link to={`/api/actions/${project.id}`}>{project.name}</Link>
+                  <Link to={`/actions/${project.id}`}>{project.name}</Link>
               </div>
           ))}
       </div>

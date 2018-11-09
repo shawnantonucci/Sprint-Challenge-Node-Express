@@ -49,7 +49,7 @@ class Actions extends React.Component {
     } else {
       return (
         <div>
-            <Link to={`/api/projects`}>Go Back</Link>
+            <Link to={`/projects`}>Go Back</Link>
           <h1>{this.state.name}</h1>
           {this.state.actions.map(action => {
               return <p key={action.id}>{action.description}</p>

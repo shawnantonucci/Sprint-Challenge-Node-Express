@@ -32,10 +32,10 @@ class App extends Component {
       <div className="App">
         <Route
           exact
-          path="/api/projects"
+          path="/projects"
           render={props => <Projects {...props} projects={this.state.projects} />}
         />
-        <Route path="/api/actions/:id" render={props => <Actions {...props} />} />
+        <Route path="/actions/:id" render={props => <Actions {...props} />} />
       </div>
     );
   }
