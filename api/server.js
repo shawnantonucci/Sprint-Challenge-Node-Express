@@ -72,4 +72,17 @@ server.post("/api/projects", (req, res) => {
     });
 });
 
+// delete a project by id
+server.delete("/api/projects/:id", (req, res) => {
+    projectDb.remove(req.params.id).then(project => {
+        if (project) {
+            res.status(200).json(project);
+        } else {
+            res.status(404).json({ message: "The project with the specified ID does not exist." });
+        }
+    }).catch(error => {
+        res.status(500).json({ error: "The project could not be removed" });
+    });
+})
+
 module.exports = server;
