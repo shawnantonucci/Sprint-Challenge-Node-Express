@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 const gateKeeper = require("../middleware/gatekeeperMiddleware.js");
 const projectDb = require("../data/helpers/projectModel.js");
@@ -6,6 +7,7 @@ const actionDb = require("../data/helpers/actionModel.js");
 
 const server = express();
 server.use(express.json());
+server.use(cors());
 
 // PROJECTS
 
