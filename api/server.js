@@ -85,4 +85,19 @@ server.delete("/api/projects/:id", (req, res) => {
     });
 })
 
+// update a project by id
+server.put("/api/projects/:id", (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
+    projectDb.update(id, changes).then(project => {
+        if (project) {
+            res.status(200).json(project);
+        } else {
+            res.status(404).json({ message: "The project with the specified ID does not exist." });
+        }
+    }).catch(error => {
+        res.status(500).json({ error: "The project information can not be modified." });
+    });
+})
+
 module.exports = server;
