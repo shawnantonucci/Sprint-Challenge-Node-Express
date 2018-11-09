@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { StyledLink, Title, ActionList } from '../Styles.js';
 
 class Actions extends React.Component {
   constructor(props) {
@@ -49,10 +49,10 @@ class Actions extends React.Component {
     } else {
       return (
         <div>
-            <Link to={`/projects`}>Go Back</Link>
-          <h1>{this.state.name}</h1>
+            <StyledLink to={`/projects`}>Go Back</StyledLink>
+          <Title>{this.state.name}</Title>
           {this.state.actions.map(action => {
-              return <p key={action.id}>{action.description}</p>
+              return <ActionList key={action.id}>{action.description}</ActionList>
           })}
         </div>
       );
